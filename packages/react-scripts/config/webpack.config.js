@@ -347,6 +347,11 @@ module.exports = function(webpackEnv) {
           : isEnvProduction && workspacesConfig.production
             ? [paths.appSrc, workspacesConfig.paths]
             : paths.appSrc,
+          exclude: useTypeScript
+            ? file =>
+              /\.tsx?/.test(path.extname(file)) &&
+              !file.startsWith(paths.appSrc)
+            : undefined,
         },
         {
           // "oneOf" will traverse all following loaders until one will
